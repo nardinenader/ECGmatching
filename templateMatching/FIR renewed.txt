@@ -1,0 +1,112 @@
+def FIR ():
+    Filters = Filter.get()
+    frequencySampling = float(Freq.get())
+    StopBand = int(stopband.get())
+    FC = float(fc.get())
+    TransitionBand = float(Transband.get())
+    PassBand = Passband.get()
+    F1 = ftwo_entry.get()
+    F2 = ftwo_entry.get()
+
+    #first step -- window method
+    if 44 < StopBand <= 53:   #hamming
+        delta_f = TransitionBand / frequencySampling
+        N = 3.3 / delta_f
+        if N % 2 == 0:
+            N += 1
+        else:
+            N = round(N)
+            if N % 2 == 0:
+                N += 1
+        n = np.arange(-int((N - 1) / 2), int((N - 1) / 2) + 1)
+        print("the N:", N)
+        print("the range:", n)
+        window_function = 0.54 + 0.46 * np.cos((2 * np.pi * n) / (N - 1))
+
+
+        print("the window function:", window_function)
+        print("hamming")
+
+    elif 53 <= StopBand <= 74: #blackman
+        delta_f = TransitionBand / frequencySampling
+        N = 5.5 / delta_f
+        if N % 2 == 0:
+            N += 1
+        else:
+            N = round(N)
+            if N % 2 == 0:
+                N += 1
+        n = np.arange(-int((N - 1) / 2), int((N - 1) / 2) + 1)
+        print ("the N:",N)
+        print ("the range:",n)
+        window_function = 0.42 + 0.5 * np.cos(2 * np.pi * n / (N-1)) + 0.08*np.cos(4*np.pi*n/(N-1))
+        print("the window function:",window_function)
+        print("blackman")
+
+    elif 21 <= StopBand <= 44 : #hanning
+        delta_f = TransitionBand / frequencySampling
+        print(delta_f)
+        N = 3.1 / delta_f
+        if N % 2 == 0:
+            N += 1
+        else:
+            N = round(N)
+            if N % 2 == 0:
+                N += 1
+        n = np.arange(-int((N - 1) / 2), int((N - 1) / 2) + 1)
+        print("the N:", N)
+        print("the range:", n)
+        window_function = 0.5 + 0.5 * np.cos(2 * np.pi * n / N)
+        print("the window function:",window_function)
+        print("hanning")
+
+    elif 1 <= StopBand <= 21 : #rectangular
+        delta_f = TransitionBand / frequencySampling
+        print(delta_f)
+        N = 0.9 / delta_f
+        if N % 2 == 0:
+            N += 1
+        else:
+            N = round(N)
+            if N % 2 == 0:
+                N += 1
+        n = np.arange(-int((N - 1) / 2), int((N - 1) / 2) + 1)
+        print("the N:", N)
+        print("the range:", n)
+        window_function = 1
+        print("the window function:",window_function)
+        print("rectangular")
+
+    HD = np.zeros_like(n, dtype=float)
+    fc_inverse = (FC + (TransitionBand / 2)) / frequencySampling
+    angular_fc = 2 * np.pi * fc_inverse
+    symm = len(n) // 2
+#second step --- filter
+    if Filters == "low pass filter":
+
+        HD[0 + symm] = 2 * fc_inverse
+
+        for i, n_value in enumerate(n):
+            if n_value != 0:
+                HD[i] = (2 * fc_inverse * np.sin(n_value * angular_fc)) / (n_value * angular_fc)
+
+        final_result = HD * window_function
+
+        Compare_Signals("E:/dsp/Practical task 1/FIR test cases/Testcase 1/LPFCoefficients.txt", n, final_result)
+
+        print(final_result)
+
+    elif Filters == "high pass filter":
+
+        HD[0 + symm] = 1 - (2 * fc_inverse)
+
+        for i, n_value in enumerate(n):
+            if n_value != 0:
+                HD[i] = (-(2 * fc_inverse) * np.sin(n_value * angular_fc)) / (n_value * angular_fc)
+
+        final_result = HD * window_function
+        Compare_Signals("E:/dsp/Practical task 1/FIR test cases/Testcase 3/HPFCoefficients.txt", n, final_result)
+
+
+
+        # print(final_result)

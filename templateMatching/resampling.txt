@@ -1,0 +1,64 @@
+# ////////////////////////task 8
+label = tk.Label(frame7, text="FIR")
+label.grid(row=0, column=0, padx=5, pady=5, sticky="w")
+row_counter += 1
+
+label_fs = tk.Label(frame7, text="Enter Type of Filter:")
+label_fs.grid(row=1, column=0, pady=5)
+Filter = tk.Entry(frame7)
+Filter.grid(row=1, column=1, padx=pad_x, sticky="w")
+
+label_fs = tk.Label(frame7, text="Enter FS:")
+label_fs.grid(row=2, column=0, pady=5)
+Freq = tk.Entry(frame7)
+Freq.grid(row=2, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter StopBandAttenuation:")
+label_number.grid(row=3, column=0, pady=5)
+stopband = tk.Entry(frame7)
+stopband.grid(row=3, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter PassBandRipple:")
+label_number.grid(row=4, column=0, pady=5)
+Passband = tk.Entry(frame7)
+Passband.grid(row=4, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter FC:")
+label_number.grid(row=5, column=0, pady=5)
+fc = tk.Entry(frame7)
+fc.grid(row=5, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter TransitionBand:")
+label_number.grid(row=6, column=0, pady=5)
+Transband = tk.Entry(frame7)
+Transband.grid(row=6, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter F1:")
+label_number.grid(row=7, column=0, pady=5)
+F1 = tk.Entry(frame7)
+F1.grid(row=7, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter F2:")
+label_number.grid(row=8, column=0, pady=5)
+F2 = tk.Entry(frame7)
+F2.grid(row=8, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter M:")
+label_number.grid(row=9, column=0, pady=5)
+decimation = tk.Entry(frame7)
+decimation.grid(row=9, column=1, padx=pad_x, sticky="w")
+
+label_number = tk.Label(frame7, text="Enter L:")
+label_number.grid(row=10, column=0, pady=5)
+interpolation = tk.Entry(frame7)
+interpolation.grid(row=10, column=1, padx=pad_x, sticky="w")
+
+button = tk.Button(frame7, text="Generate Filter (fir)", command=FIR)
+button.grid(row=11, column=3, padx=pad_x, sticky="w")
+
+filteredButton = tk.Button(frame7, text="Apply Filter", command=apply_fir)
+filteredButton.grid(row=12, column=3, padx=pad_x, sticky="w")
+
+resampleButton = tk.Button(frame7, text="resample", command=resampling)
+resampleButton.grid(row=13, column=3, padx=pad_x, sticky="w")
+
